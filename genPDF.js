@@ -30,13 +30,13 @@ if (system.args.length < 3) {
       header: {
         height: "1cm",
         contents: phantom.callback(function(pageNum, numPages) {
-        return "<h1 style='font-size:12.0; font-family:Arial,Helvetica,FreeSans,sans-serif'>Header <span style='float:center'>" + pageNum + " / " + numPages + "</span></h1>";
+        return "<h1 style='font-size:12.0; font-family:Arial,Helvetica,FreeSans,sans-serif'>Header <span style='text-align:center'>" + pageNum + " / " + numPages + "</span></h1>";
         })
       },
       footer: {
         height: "1cm",
         contents: phantom.callback(function(pageNum, numPages) {
-        return "<h1 style='font-size:12.0; font-family:Arial,Helvetica,FreeSans,sans-serif'>Footer <span style='float:center'>" + pageNum + " / " + numPages + "</span></h1>";
+        return "<h1 style='font-size:12.0; font-family:Arial,Helvetica,FreeSans,sans-serif'>Footer <span style='text-align:center'>" + pageNum + " / " + numPages + "</span></h1>";
         })
       }
     };
@@ -46,16 +46,6 @@ page.open(address, function (status) {
         console.log('Unable to load the address!');
     } else {
         window.setTimeout(function () {
-            page.evaluate(function(){
-              lastScrollTop = document.body.scrollTop;
-              pageHeight = 0;
-              while(document.body.scrollTop ==pageHeight){
-                   setTimeout(function(){
-                     document.body.scrollTop += 300;
-                     pageHeight+=300;
-                   },1000);
-              }
-            });
             page.render(output);
             phantom.exit();
         }, 1000*60);
